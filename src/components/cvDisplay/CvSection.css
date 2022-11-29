@@ -1,0 +1,15 @@
+
+.section {
+  margin-bottom: 1.6rem;
+}
+
+.section-title {
+  letter-spacing: .1rem;
+  font-size: 1.2rem;
+  text-align: start;
+  margin-bottom: .6rem;
+}
+
+.item {
+  list-style: none;
+}

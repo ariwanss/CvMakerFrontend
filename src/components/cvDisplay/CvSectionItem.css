@@ -1,0 +1,44 @@
+.item {
+  margin: 0 auto 1rem auto;
+  font-size: 1.1rem;
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  line-height: 1.3rem;
+  margin-bottom: .6rem;
+}
+
+.item-title {
+  max-width: 70%;
+  text-align: start;
+}
+
+.item-link {
+  font-size: 1rem;
+  text-decoration: underline;
+  text-align: start;
+  margin-bottom: .6rem;
+}
+
+.item-description {
+  /* font-style: italic; */
+  text-align: start;
+  line-height: 1.3rem;
+}
+
+.no-style-list {
+  list-style: none;
+}
+
+.dash-list {
+  list-style-type: "-";
+  list-style-position: outside;
+  padding-left: .4rem;
+}
+
+.dash-list li {
+  padding-left: .5rem;
+}

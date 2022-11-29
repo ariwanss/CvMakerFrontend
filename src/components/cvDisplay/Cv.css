@@ -1,0 +1,9 @@
+.cv {
+  width: 50vw;
+  height: 100vh;
+  position: absolute;
+  right: 0;
+  padding: 2rem;
+  overflow: scroll;
+  overflow-x: hidden;
+}
