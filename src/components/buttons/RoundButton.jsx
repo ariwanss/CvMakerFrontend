@@ -3,15 +3,15 @@ import { css } from '@emotion/react';
 
 const sizes = {
   small: {
-    fontSize: '1.2em',
+    fontSize: '1.2rem',
     diameter: '30px'
   },
   medium: {
-    fontSize: '1.6em',
+    fontSize: '1.6rem',
     diameter: '40px'
   },
   large: {
-    fontSize: '2em',
+    fontSize: '2rem',
     diameter: '50px'
   }
 }

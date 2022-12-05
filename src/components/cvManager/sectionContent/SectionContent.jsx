@@ -4,9 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectSectionContent, shownSectionChanged } from '../../../stores/sectionSlice';
 import { FaTimes, FaRegTrashAlt, FaEdit, FaPlus } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
-import SectionContentItem from './SectionContentItem';
-import AddSectionContentItem from './AddSectionContentItem';
-import SectionContentItemEditable from './SectionContentItemEditable';
+import NewSectionContentItem from './NewSectionContentItem';
 import PillButton from '../../buttons/PillButton';
 import RoundButton from '../../buttons/RoundButton';
 import FlexBox from '../../containers/FlexBox';
@@ -50,7 +48,9 @@ const SectionContent = ({ title }) => {
     return;
   }
 
-  const sectionContentRender = sectionContent.map((entry, index) => <SectionContentItem key={index} {...entry} />);
+  const sectionContentRender = sectionContent.map((entry, index) => <li>
+    <NewSectionContentItem key={index} {...entry} />
+  </li>)
 
   return (
     <div css={css`padding: .5em`}>
@@ -65,8 +65,7 @@ const SectionContent = ({ title }) => {
       <ul>
         {sectionContentRender}
       </ul>
-      <AddSectionContentItem hide/>
-      <SectionContentItemEditable />
+      <NewSectionContentItem />
       <RoundButton small onClick={onAddButtonClick} addCss={css`margin: auto`}><FaPlus /></RoundButton>
     </div>
   )

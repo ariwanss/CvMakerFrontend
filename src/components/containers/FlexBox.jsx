@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 
-const FlexBox = ({ addCss, children, justifyContent, alignItems, column, row, inline, wrap, hide }) => {
+const FlexBox = ({ addCss, children, justifyContent, alignItems, column, row, inline, wrap, hide, behavior }) => {
   return (
     <div css={css`
     display: ${hide ? 'none' : inline ? 'inline-flex' : 'flex'};
@@ -9,7 +9,8 @@ const FlexBox = ({ addCss, children, justifyContent, alignItems, column, row, in
     align-items: ${alignItems};
     flex-direction: ${column && 'column' || row && 'row'};
     flex-wrap: ${wrap ? 'wrap' : 'nowrap'};
-    ${addCss}
+    ${addCss};
+    ${behavior};
     `}>{children}</div>
   )
 }
