@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 import { useState, useEffect } from "react";
 import Button from "../../buttons/Button";
 import ToggledInput from "../../inputs/ToggledInput";
+import ItemTitle from "./ItemTitle";
 import StartDateEndDate from "./StartDateEndDate";
 import AddLink from "./AddLink";
 import AddDescription from "./description/AddDescription";
@@ -35,7 +36,11 @@ const NewSectionContentItem = ({title: entryTitle, timeStart: entryTimeStart, ti
     setIsUnsaved(true);
   }, [itemData]);
 
-  const onInputChange = (e) => {
+  // useEffect(() => {
+  //   console.log(itemData);
+  // })
+
+  const handleChange = (e) => {
     setItemData(prev => ({
       ...prev,
       [e.target.name]: e.target.value
@@ -68,7 +73,7 @@ const NewSectionContentItem = ({title: entryTitle, timeStart: entryTimeStart, ti
     }))
   }
 
-  const onLinkDelete = () => {
+  const handleLinkDelete = () => {
     setItemData(prev => ({
       ...prev,
       link: ''
@@ -83,13 +88,15 @@ const NewSectionContentItem = ({title: entryTitle, timeStart: entryTimeStart, ti
     <div css={boxStyle}>
       <p css={css`margin-bottom: 1rem; text-align: center;
       display: ${isUnsaved ? 'block' : 'none'};`} >Unsaved</p>
-      <ToggledInput type='text' name='title' value={title} onChange={onInputChange} addCss={css`font-weight: bold;`} disabled placeholder='Add title' />
+      <ItemTitle 
+        value={title}
+        onChange={handleChange} />
       <div>
-        <StartDateEndDate {...{timeStart, timeEnd}} onChange={onInputChange} />
+        <StartDateEndDate {...{timeStart, timeEnd}} onChange={handleChange} />
         <AddLink
           value={link}
-          onChange={onInputChange}
-          onLinkDelete={onLinkDelete} />
+          onChange={handleChange}
+          onDelete={handleLinkDelete} />
         <Description
           description={description}
           onDescItemEdit={onDescItemEdit}

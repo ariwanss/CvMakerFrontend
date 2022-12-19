@@ -1,33 +1,28 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { showChildrenOnHover } from "../../../utility/stylesAndBehaviors";
 import Button from "../../buttons/Button";
 import { DoneButton, EditButton, DeleteButton } from "../../buttons/TextButtons";
 import FlexBox from "../../containers/FlexBox";
+import ContentEditable from "../../inputs/ContentEditable";
 
-
-const AddLink = ({ value, onChange, onLinkDelete }) => {
+const AddLink = ({ value, onChange: handleChange, onDelete: handleDelete }) => {
   const [isAddLinkBtnShown, setIsAddBtnShown] = useState(value ? false : true);
   const [isInputShown, setIsInputShown] = useState(value ? true : false);
   const [isInputEnabled, setIsInputEnabled] = useState(false);
 
-  const inputRef = useRef();
-
-  useEffect(() => {
-    inputRef.current.focus();
-  })
-
-  const onAddLinkClick = () => {
+  const handleAddLinkClick = () => {
     setIsInputShown(true);
+    setIsInputEnabled(true);
     setIsAddBtnShown(false);
   }
 
-  const onEditButtonClick = () => {
+  const handleEditBtnClick = () => {
     setIsInputEnabled(true);
   }
 
-  const onDoneButtonClick = () => {
+  const handleDoneBtnClick = () => {
     if (!value) {
       setIsAddBtnShown(true);
       setIsInputEnabled(true);
@@ -37,18 +32,18 @@ const AddLink = ({ value, onChange, onLinkDelete }) => {
     }
   }
 
-  const onDeleteButtonClick = () => {
-    onLinkDelete();
+  const handleDelBtnClick = () => {
+    handleDelete();
     setIsAddBtnShown(true);
     setIsInputEnabled(true);
     setIsInputShown(false);
   }
 
-  const button = isInputEnabled ? <DoneButton fontSize='.8em' addCss={css`margin-right: .5rem`} onClick={onDoneButtonClick} /> : <EditButton fontSize='.8em' addCss={css`margin-right: .5rem`} hide onClick={onEditButtonClick} showOnHover />
+  const button = isInputEnabled ? <DoneButton fontSize='.8em' addCss={css`margin-right: .5rem`} onClick={handleDoneBtnClick} /> : <EditButton fontSize='.8em' addCss={css`margin-right: .5rem`} hide onClick={handleEditBtnClick} showOnHover />
 
   return (
     <div css={css`margin-bottom: .5rem;`} >
-      <Button fontSize='1em' hide={!isAddLinkBtnShown} onClick={onAddLinkClick}>Add Link</Button>
+      <Button fontSize='1em' hide={!isAddLinkBtnShown} onClick={handleAddLinkClick}>Add Link</Button>
       <div css={css`display: ${isInputShown ? 'block' : 'none'}`} >
         <FlexBox
           justifyContent='start'
@@ -60,29 +55,13 @@ const AddLink = ({ value, onChange, onLinkDelete }) => {
             addCss={css`margin-right: .5rem`}
             hide
             showOnHover={!isInputEnabled}
-            onClick={onDeleteButtonClick} />
+            onClick={handleDelBtnClick} />
           {button}
-          <input
-            css={css`
-              font-size: 1.4rem;
-              border: none;
-              background-color: transparent;
-              outline: none;
-              &:disabled {
-                color: unset;
-              }
-              &[type="month"] {
-                font: unset;
-                width: 12.5rem;
-              }
-            `}
-            type='text'
+          <ContentEditable
             name='link'
             value={value}
-            placeholder='Link'
-            disabled={!isInputEnabled}
-            onChange={onChange}
-            ref={inputRef} />
+            onChange={handleChange}
+            disabled={!isInputEnabled} />
         </FlexBox>
       </div>
     </div>

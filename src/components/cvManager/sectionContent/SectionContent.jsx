@@ -48,8 +48,8 @@ const SectionContent = ({ title }) => {
     return;
   }
 
-  const sectionContentRender = sectionContent.map((entry, index) => <li>
-    <NewSectionContentItem key={index} {...entry} />
+  const sectionContentRender = sectionContent.map((entry, index) => <li key={index}>
+    <NewSectionContentItem {...entry} />
   </li>)
 
   return (
