@@ -5,15 +5,13 @@ import FlexBox from "../containers/FlexBox";
 import {EditButton, DoneButton} from '../buttons/TextButtons';
 import { showChildrenOnHover } from "../../utility/stylesAndBehaviors";
 
-const ToggledInput = ({ type, name, id, value, addCss, onChange, disabled, placeholder}) => {
+const Input = ({ type, name, id, value, addCss, onChange, disabled, placeholder}) => {
   const [isInputEnabled, setIsInputEnabled] = useState(!disabled && true);
 
   const inputRef = useRef();
 
   useEffect(() => {
-    if (type === 'text') {
-      inputRef.current.focus();
-    }
+    inputRef.current.focus();
   })
 
   const onEditButtonClick = () => {
@@ -33,7 +31,6 @@ const ToggledInput = ({ type, name, id, value, addCss, onChange, disabled, place
       behavior={showChildrenOnHover}
       addCss={css`
       height: 22px;
-      margin-bottom: .5rem;
     `} >
       {button}
       <input
@@ -62,4 +59,4 @@ const ToggledInput = ({ type, name, id, value, addCss, onChange, disabled, place
   )
 }
 
-export default ToggledInput;
+export default Input;

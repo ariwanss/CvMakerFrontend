@@ -3,51 +3,58 @@ import { css } from "@emotion/react";
 import { useState } from "react";
 import FlexBox from "../../../containers/FlexBox";
 import { DeleteButton, DoneButton, EditButton } from "../../../buttons/TextButtons";
-import { showChildrenOnHover } from "../../../../utility/stylesAndBehaviors";
+import TextArea from "../../../inputs/TextArea";
 
-const DescriptionItem = ({index, text, onDescItemEdit, onDescItemDelete}) => {
+const DescriptionItem = ({index, text, onEdit: handleEdit, onDelete: handleDelete}) => {
   const [isInputEnabled, setIsInputEnabled] = useState(false);
+  const [isControlBtnShown, setIsControlBtnShown] = useState(false);
   
-  const onEditButtonClick = () => {
+  const handleEditBtnClick = () => {
     setIsInputEnabled(true);
   }
 
-  const onDoneButtonClick = () => {
+  const handleDoneBtnClick = () => {
     if (!text) {
-      onDescItemDelete(index);
+      handleDelete(index);
     } 
     setIsInputEnabled(false)
   }
 
-  const onDeleteButtonClick = () => {
-    onDescItemDelete(index);
+  const handleDelBtnClick = () => {
+    handleDelete(index);
   }
 
-  const onChange = (e) => {
-    onDescItemEdit(index, e.target.value);
+  const handleChange = (e) => {
+    handleEdit(index, e.target.value);
   }
 
-  const editButton = isInputEnabled ? <DoneButton addCss={css`margin-right: .5rem;`} fontSize='.8em' onClick={onDoneButtonClick} /> : <EditButton addCss={css`margin-right: .5rem;`} fontSize='.8em' hide onClick={onEditButtonClick} showOnHover />;
+  const handleMouseEnter = () => {
+    setIsControlBtnShown(true);
+  }
+
+  const handleMouseLeave = () => {
+    setIsControlBtnShown(false);
+  }
+
+  const editButton = isInputEnabled ? <DoneButton addCss={css`margin-right: .5rem;`} fontSize='.8em' onClick={handleDoneBtnClick} /> : <EditButton addCss={css`margin-right: .5rem;`} fontSize='.8em' hide={!isControlBtnShown} onClick={handleEditBtnClick} />;
 
   return (
-    <FlexBox align-items='center' behavior={showChildrenOnHover} >
-      <DeleteButton addCss={css`margin-right: .5rem;`} fontSize='.8em' hide onClick={onDeleteButtonClick} showOnHover={!isInputEnabled} />
-      {editButton}      
-      <input
-        css={css`
-          font-size: 1em;
-          border: none;
-          background-color: transparent;
-          outline: none;
-          &:disabled {
-            color: unset;
-          }
-        `}
-        type='text'
+    <FlexBox 
+      alignItems='center'
+      justifyContent='start'
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave} >
+      <DeleteButton 
+        addCss={css`margin-right: .5rem;`} 
+        fontSize='.8em' 
+        hide={!isControlBtnShown || isInputEnabled} 
+        onClick={handleDelBtnClick} />
+      {editButton}
+      <TextArea
         name='descEntry'
         value={text}
         disabled={!isInputEnabled}
-        onChange={onChange} />
+        onChange={handleChange} />
     </FlexBox>
   )
 }

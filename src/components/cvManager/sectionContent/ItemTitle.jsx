@@ -3,7 +3,6 @@ import { css } from "@emotion/react";
 import { useState } from "react";
 import { EditButton, DoneButton } from "../../buttons/TextButtons";
 import FlexBox from "../../containers/FlexBox";
-import ContentEditable from "../../inputs/ContentEditable";
 import TextArea from "../../inputs/TextArea";
 
 const ItemTitle = ({ value, onChange: handleChange }) => {
@@ -38,10 +37,10 @@ const ItemTitle = ({ value, onChange: handleChange }) => {
       justifyContent='start'
       alignItems='center'
       onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
+      onMouseLeave={handleMouseLeave} >
       {button}
       <TextArea
+        addCss={css`font-weight: bold;`}
         name='title'
         value={value}
         placeholder='Add Title'

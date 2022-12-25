@@ -1,14 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 
-const Button = ({ children, addCss, height, width, fontSize, onClick, hide, showOnHover }) => {
+const Button = ({ children, addCss, height, width, fontSize, onClick, hide }) => {
   return (
     <button
-    className={showOnHover && 'showOnHover'}
     css={
       css`
       display: ${hide ? 'none' : 'block'};
-      height: ${height};
+      height: ${height || 'min-content'};
       width: ${width};
       font-size: ${fontSize};
       border: none;

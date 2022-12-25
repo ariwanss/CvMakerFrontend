@@ -12,7 +12,7 @@ const TextArea = ({ name, value, placeholder, onChange: handleChange, disabled, 
 
   useEffect(() => {
     el.current.focus();
-  }, [disabled])
+  })
 
   return (
     <textarea
@@ -20,7 +20,6 @@ const TextArea = ({ name, value, placeholder, onChange: handleChange, disabled, 
         background-color: inherit;
         font-family: inherit;
         font-size: inherit;
-        font-weight: bold;
         color: inherit;
         resize: none;
         outline: none;

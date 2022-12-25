@@ -4,54 +4,39 @@ import { useState, useRef, useEffect } from "react";
 import { DoneButton } from "../../../buttons/TextButtons";
 import Button from "../../../buttons/Button";
 import FlexBox from "../../../containers/FlexBox";
+import TextArea from "../../../inputs/TextArea";
 
-const AddDescription = ({ newDesc, onChange, hide, onDone}) => {
-  const [isAddDescBtnShown, setIsAddDescBtnShown] = useState(true);
+const AddDescription = ({ value, onChange: handleChange, hide, onDone: handleDone }) => {
+  const [isAddBtnShown, setIsAddBtnShown] = useState(true);
   const [isInputShown, setIsInputShown] = useState(false);
 
-  const newDescRef = useRef();
-
-  useEffect(() => {
-    newDescRef.current.focus();
-  })
-
-  const onAddDescButtonClick = () => {
-    setIsAddDescBtnShown(false);
+  const handleAddBtnClick = () => {
+    setIsAddBtnShown(false);
     setIsInputShown(true);
   };
 
-  const onDoneButtonClick = () => {
-    setIsAddDescBtnShown(true);
+  const handleDoneBtnClick = () => {
+    setIsAddBtnShown(true);
     setIsInputShown(false);
-    if (newDesc) {
-      onDone();
+    if (value) {
+      handleDone();
     }
   }
 
   return (
     <div>
-      <div css={css`display: ${isInputShown ? 'block' : 'none'}`} >
-        <FlexBox>
-          <DoneButton fontSize='.8em' addCss={css`margin-right: .5rem;`} onClick={onDoneButtonClick} />
-          <input
-            css={css`
-              font-size: 1em;
-              border: none;
-              background-color: transparent;
-              outline: none;
-              &:disabled {
-                color: unset;
-              }
-            `}
-            type='text'
-            name='newDesc'
-            value={newDesc}
-            onChange={onChange}
-            placeholder='Description'
-            ref={newDescRef} />
-        </FlexBox>
-      </div>
-      <Button fontSize='1em' onClick={onAddDescButtonClick} hide={!isAddDescBtnShown} >Add Descripton</Button>
+      <FlexBox
+        justifyContent='center'
+        alignItems='center'
+        hide={!isInputShown} >
+        <DoneButton fontSize='.8em' addCss={css`margin-right: .5rem;`} onClick={handleDoneBtnClick} />
+        <TextArea
+          name='newDesc'
+          value={value}
+          placeholder='Add description'
+          onChange={handleChange} />
+      </FlexBox>
+      <Button fontSize='1em' onClick={handleAddBtnClick} hide={!isAddBtnShown} >Add Descripton</Button>
     </div>
 
   )

@@ -2,7 +2,6 @@
 import { css } from "@emotion/react";
 import { useState, useEffect } from "react";
 import Button from "../../buttons/Button";
-import ToggledInput from "../../inputs/ToggledInput";
 import ItemTitle from "./ItemTitle";
 import StartDateEndDate from "./StartDateEndDate";
 import AddLink from "./AddLink";
@@ -36,10 +35,6 @@ const NewSectionContentItem = ({title: entryTitle, timeStart: entryTimeStart, ti
     setIsUnsaved(true);
   }, [itemData]);
 
-  // useEffect(() => {
-  //   console.log(itemData);
-  // })
-
   const handleChange = (e) => {
     setItemData(prev => ({
       ...prev,
@@ -47,11 +42,11 @@ const NewSectionContentItem = ({title: entryTitle, timeStart: entryTimeStart, ti
     }))
   }
 
-  const onNewDescChange = (e) => {
+  const handleNewDescChange = (e) => {
     setNewDesc(e.target.value);
   }
 
-  const onNewDescDone = () => {
+  const handleNewDescDone = () => {
     setItemData(prev => ({
       ...prev,
       description: [...prev.description, newDesc]
@@ -59,14 +54,14 @@ const NewSectionContentItem = ({title: entryTitle, timeStart: entryTimeStart, ti
     setNewDesc('');
   }
 
-  const onDescItemEdit = (index, text) => {
+  const handleDescItemEdit = (index, text) => {
     setItemData(prev => ({
       ...prev,
       description: [...prev.description.slice(0, index), text, ...prev.description.slice(index + 1)]
     }))
   }
 
-  const onDescItemDelete = (index) => {
+  const handleDescItemDelete = (index) => {
     setItemData(prev => ({
       ...prev,
       description: [...prev.description.slice(0, index), ...prev.description.slice(index + 1)]
@@ -99,12 +94,12 @@ const NewSectionContentItem = ({title: entryTitle, timeStart: entryTimeStart, ti
           onDelete={handleLinkDelete} />
         <Description
           description={description}
-          onDescItemEdit={onDescItemEdit}
-          onDescItemDelete={onDescItemDelete} />
+          onDescItemEdit={handleDescItemEdit}
+          onDescItemDelete={handleDescItemDelete} />
         <AddDescription
-          newDesc={newDesc}
-          onChange={onNewDescChange}
-          onDone={onNewDescDone} />
+          value={newDesc}
+          onChange={handleNewDescChange}
+          onDone={handleNewDescDone} />
       </div>
       <Button addCss={css`margin: auto; margin-top: 1rem;`} fontSize='1em' hide={!isUnsaved} onClick={onSave} >Save</Button>
     </div>
