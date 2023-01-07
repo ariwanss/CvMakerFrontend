@@ -9,6 +9,8 @@ import NewSectionContentItem from './NewSectionContentItem';
 import PillButton from '../../buttons/PillButton';
 import RoundButton from '../../buttons/RoundButton';
 import FlexBox from '../../containers/FlexBox';
+import NewInput from '../../inputs/NewInput';
+import InputWrapper from '../../inputs/InputWrapper';
 
 const SectionContent = ({ title }) => {
   const dispatch = useDispatch();
@@ -26,18 +28,6 @@ const SectionContent = ({ title }) => {
   const handleCloseBtnClick = () => {
     dispatch(shownSectionChanged(''));
     setIsControlShown(false);
-  }
-
-  const handleTitleBtnClick = () => {
-    setIsControlShown(!isControlShown);
-  }
-
-  const handleEditBtnClick = () => {
-
-  }
-
-  const handleDelBtnClick = () => {
-    console.log('really')
   }
 
   const handleAddBtnClick = () => {
@@ -65,16 +55,8 @@ const SectionContent = ({ title }) => {
         addCss={css`margin-bottom: .5em`} 
         justifyContent='center' 
         alignItems='center'>
-        <PillButton onClick={handleTitleBtnClick}>{title}</PillButton>
+        <PillButton addCss={css`&:hover {cursor: unset; filter: unset}`} >{title}</PillButton>
         <RoundButton small onClick={handleCloseBtnClick}><FaTimes /></RoundButton>
-      </FlexBox>
-      <FlexBox 
-        addCss={css`margin-bottom: .5em`} 
-        justifyContent='center' 
-        alignItem='center' 
-        hide={!isControlShown}>
-        <RoundButton small onClick={handleEditBtnClick}><FaEdit /></RoundButton>
-        <RoundButton small onClick={handleDelBtnClick}><FaRegTrashAlt /></RoundButton>
       </FlexBox>
       <ul>
         {sectionContentRender}

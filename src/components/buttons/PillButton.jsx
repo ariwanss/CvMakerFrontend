@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 
-const PillButton = ({ children, onClick }) => {
+const PillButton = ({ children, onClick, addCss }) => {
   return (
     <button css={css`
     background-color: #EEE;
@@ -13,7 +13,8 @@ const PillButton = ({ children, onClick }) => {
     &:hover {
       cursor: pointer;
       filter: brightness(105%);
-    }
+    };
+    ${addCss}
     `}
       onClick={onClick}>{children}</button>
   )
