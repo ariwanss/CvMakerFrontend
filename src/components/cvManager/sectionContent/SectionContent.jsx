@@ -14,20 +14,17 @@ import InputWrapper from '../../inputs/InputWrapper';
 
 const SectionContent = ({ title }) => {
   const dispatch = useDispatch();
-  const [isControlShown, setIsControlShown] = useState(false);
   const [isNewItemFormShown, setIsNewItemFormShown] = useState(false);
   const [currentTitle, setCurrentTitle] = useState(title);
 
   useEffect(() => {
     if (currentTitle !== title) {
       setCurrentTitle(title);
-      setIsControlShown(false);
     }
-  })
+  });
 
   const handleCloseBtnClick = () => {
     dispatch(shownSectionChanged(''));
-    setIsControlShown(false);
   }
 
   const handleAddBtnClick = () => {
@@ -36,7 +33,7 @@ const SectionContent = ({ title }) => {
 
   const sectionContent = useSelector((state) => selectSectionContent(state, title));
 
-  if (!sectionContent) {
+  if (!title) {
     return;
   }
 
