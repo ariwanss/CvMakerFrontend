@@ -5,12 +5,13 @@ import Button from "../../buttons/Button";
 import { DoneButton, EditButton, DeleteButton } from "../../buttons/TextButtons";
 import FlexBox from "../../containers/FlexBox";
 import TextArea from "../../inputs/TextArea";
+import InputWrapper from "../../inputs/InputWrapper";
 
 const AddLink = ({ value, onChange: handleChange, onDelete: handleDelete }) => {
   const [isAddLinkBtnShown, setIsAddBtnShown] = useState(value ? false : true);
   const [isInputShown, setIsInputShown] = useState(value ? true : false);
   const [isInputEnabled, setIsInputEnabled] = useState(false);
-  const [isControlBtnShown, setIsControlBtnShown] = useState(false);
+  const [isButtonShown, setIsButtonShown] = useState(false);
 
   const handleAddLinkClick = () => {
     setIsInputShown(true);
@@ -20,7 +21,7 @@ const AddLink = ({ value, onChange: handleChange, onDelete: handleDelete }) => {
 
   const handleEditBtnClick = () => {
     setIsInputEnabled(true);
-    setIsControlBtnShown(false);
+    setIsButtonShown(false);
   }
 
   const handleDoneBtnClick = () => {
@@ -41,17 +42,21 @@ const AddLink = ({ value, onChange: handleChange, onDelete: handleDelete }) => {
   }
 
   const handleMouseEnter = () => {
-    setIsControlBtnShown(true);
+    setIsButtonShown(true);
   }
 
   const handleMouseLeave = () => {
-    setIsControlBtnShown(false);
+    setIsButtonShown(false);
   }
 
-  const button = isInputEnabled ? <DoneButton fontSize='.8em' addCss={css`margin-right: .5rem`} onClick={handleDoneBtnClick} /> : <EditButton fontSize='.8em' addCss={css`margin-right: .5rem`} hide={!isControlBtnShown} onClick={handleEditBtnClick} showOnHover />
+  const button = isInputEnabled ? <DoneButton fontSize='.8em' addCss={css`margin-right: .5rem`} onClick={handleDoneBtnClick} /> : <EditButton fontSize='.8em' addCss={css`margin-right: .5rem`} hide={!isButtonShown} onClick={handleEditBtnClick} />
 
   return (
-    <div css={css`margin-bottom: .5rem;`} >
+    <div 
+      css={css`margin-bottom: .5rem;`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      >
       <Button
         fontSize='1em'
         hide={!isAddLinkBtnShown}
@@ -70,7 +75,7 @@ const AddLink = ({ value, onChange: handleChange, onDelete: handleDelete }) => {
         <DeleteButton
           fontSize='.8em'
           addCss={css`margin-right: .5rem`}
-          hide={!isControlBtnShown || isInputEnabled}
+          hide={!isButtonShown || isInputEnabled}
           onClick={handleDelBtnClick} />
         {button}
         <TextArea
@@ -80,6 +85,26 @@ const AddLink = ({ value, onChange: handleChange, onDelete: handleDelete }) => {
           disabled={!isInputEnabled}
           onChange={handleChange} />
       </FlexBox>
+      {/* <DeleteButton
+        fontSize='.8em'
+        addCss={css`margin-right: .5rem`}
+        hide={!isButtonShown || isInputEnabled}
+        onClick={handleDelBtnClick} />
+      <InputWrapper
+        addCss={css`
+          min-height: 22px;
+          margin-bottom: .5rem;
+        `}
+        justifyContent='center'
+        alignItems='center'
+        hide={!isInputShown}
+      >
+        <TextArea
+          name='link'
+          value={value}
+          placeholder='Add link'
+          onChange={handleChange} />
+      </InputWrapper> */}
     </div>
   )
 }

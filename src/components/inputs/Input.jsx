@@ -14,21 +14,30 @@ const Input = ({ type, name, id, value, addCss, onChange, disabled, placeholder}
     inputRef.current.focus();
   })
 
-  const onEditButtonClick = () => {
+  const handleEditBtnClick = () => {
     setIsInputEnabled(true);
   }
 
-  const onSaveButtonClick = () => {
+  const handleDoneBtnClick = () => {
     setIsInputEnabled(false);
   }
 
-  const button = isInputEnabled ? <DoneButton fontSize='.8em' addCss={css`margin-right: 5px;`} onClick={onSaveButtonClick} /> : <EditButton fontSize='.8em' addCss={css`margin-right: 5px;`} onClick={onEditButtonClick} hide showOnHover/>;
+  const handleMouseEnter = () => {
+    
+  }
+
+  const handleMouseLeave = () => {
+
+  }
+
+  const button = isInputEnabled ? <DoneButton fontSize='.8em' addCss={css`margin-right: 5px;`} onClick={handleDoneBtnClick} /> : <EditButton fontSize='.8em' addCss={css`margin-right: 5px;`} onClick={handleEditBtnClick} hide />;
 
   return (
     <FlexBox
       justifyContent='start'
       alignItems='center'
-      behavior={showChildrenOnHover}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       addCss={css`
       height: 22px;
     `} >
