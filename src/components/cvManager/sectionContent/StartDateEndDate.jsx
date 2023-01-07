@@ -2,22 +2,46 @@
 import { css } from "@emotion/react";
 import FlexBox from "../../containers/FlexBox";
 import Input from "../../inputs/Input";
+import InputWrapper from "../../inputs/InputWrapper";
+import NewInput from "../../inputs/NewInput";
 
 const StartDateEndDate = ({ timeStart, timeEnd, onChange: handleChange }) => {
   return (
-    <FlexBox 
+    <FlexBox
       addCss={css`
         margin-bottom: .5rem;
       `}
-      justifyContent='start' 
+      justifyContent='start'
       alignItems='center' >
-      <div css={css`width: 20rem;`}>
+      <div>
         <p>Start date</p>
-        <Input type='month' name='timeStart' id='timeStart' value={timeStart} onChange={handleChange} addCss={css`margin-right: .5rem;`} disabled />
+        <InputWrapper
+          addCss={css`
+            min-height: 22px;
+          `}
+        >
+          <NewInput
+            type='month'
+            name='timeStart'
+            value={timeStart}
+            onChange={handleChange}
+          />
+        </InputWrapper>
       </div>
       <div>
         <p>End date</p>
-        <Input type='month' name='timeEnd' id='timeEnd' value={timeEnd} onChange={handleChange} disabled />
+        <InputWrapper
+          addCss={css`
+            min-height: 22px;
+          `}
+        >
+          <NewInput 
+            type='month'
+            name='timeEnd'
+            value={timeEnd}
+            onChange={handleChange}
+          />
+        </InputWrapper>
       </div>
     </FlexBox>
   )

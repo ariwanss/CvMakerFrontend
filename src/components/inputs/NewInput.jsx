@@ -6,7 +6,11 @@ const NewInput = ({ type, name, value, placeholder, onChange: handleChange, disa
   const el = useRef();
 
   useEffect(() => {
-    el.current.focus();
+    if (type === 'month') {
+      el.current.click();
+    } else {
+      el.current.focus();
+    }
   })
 
   return (
