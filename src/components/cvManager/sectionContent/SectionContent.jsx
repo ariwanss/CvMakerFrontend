@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectSectionContent, shownSectionChanged } from '../../../stores/sectionSlice';
 import { FaTimes, FaRegTrashAlt, FaEdit, FaPlus } from 'react-icons/fa';
+import { EditButton, DoneButton, DeleteButton } from '../../buttons/TextButtons';
 import { useState, useEffect } from 'react';
 import NewSectionContentItem from './NewSectionContentItem';
 import PillButton from '../../buttons/PillButton';
@@ -12,6 +13,7 @@ import FlexBox from '../../containers/FlexBox';
 const SectionContent = ({ title }) => {
   const dispatch = useDispatch();
   const [isControlShown, setIsControlShown] = useState(false);
+  const [isNewItemFormShown, setIsNewItemFormShown] = useState(false);
   const [currentTitle, setCurrentTitle] = useState(title);
 
   useEffect(() => {
@@ -21,25 +23,25 @@ const SectionContent = ({ title }) => {
     }
   })
 
-  const onCloseButtonClick = () => {
+  const handleCloseBtnClick = () => {
     dispatch(shownSectionChanged(''));
     setIsControlShown(false);
   }
 
-  const onTitleButtonClick = () => {
+  const handleTitleBtnClick = () => {
     setIsControlShown(!isControlShown);
   }
 
-  const onEditButtonClick = () => {
+  const handleEditBtnClick = () => {
 
   }
 
-  const onDeleteButtonClick = () => {
+  const handleDelBtnClick = () => {
     console.log('really')
   }
 
-  const onAddButtonClick = () => {
-
+  const handleAddBtnClick = () => {
+    setIsNewItemFormShown(true);
   }
 
   const sectionContent = useSelector((state) => selectSectionContent(state, title));
@@ -53,21 +55,33 @@ const SectionContent = ({ title }) => {
   </li>)
 
   return (
-    <div css={css`padding: .5em`}>
-      <FlexBox addCss={css`margin-bottom: .5em`} justifyContent='center' alignItems='center'>
-        <PillButton onClick={onTitleButtonClick}>{title}</PillButton>
-        <RoundButton small onClick={onCloseButtonClick}><FaTimes /></RoundButton>
+    <FlexBox
+      addCss={css`
+        padding: .5rem;
+      `}
+      column
+    >
+      <FlexBox 
+        addCss={css`margin-bottom: .5em`} 
+        justifyContent='center' 
+        alignItems='center'>
+        <PillButton onClick={handleTitleBtnClick}>{title}</PillButton>
+        <RoundButton small onClick={handleCloseBtnClick}><FaTimes /></RoundButton>
       </FlexBox>
-      <FlexBox addCss={css`margin-bottom: .5em`} justifyContent='center' alignItem='center' hide={!isControlShown}>
-        <RoundButton small onClick={onEditButtonClick}><FaEdit /></RoundButton>
-        <RoundButton small onClick={onDeleteButtonClick}><FaRegTrashAlt /></RoundButton>
+      <FlexBox 
+        addCss={css`margin-bottom: .5em`} 
+        justifyContent='center' 
+        alignItem='center' 
+        hide={!isControlShown}>
+        <RoundButton small onClick={handleEditBtnClick}><FaEdit /></RoundButton>
+        <RoundButton small onClick={handleDelBtnClick}><FaRegTrashAlt /></RoundButton>
       </FlexBox>
       <ul>
         {sectionContentRender}
       </ul>
-      <NewSectionContentItem />
-      <RoundButton small onClick={onAddButtonClick} addCss={css`margin: auto`}><FaPlus /></RoundButton>
-    </div>
+      <NewSectionContentItem hide={!isNewItemFormShown}/>
+      <RoundButton small onClick={handleAddBtnClick} addCss={css`margin: auto`}><FaPlus /></RoundButton>
+    </FlexBox>
   )
 }
 

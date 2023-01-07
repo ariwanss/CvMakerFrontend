@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { useState, useEffect } from "react";
+import FlexBox from "../../containers/FlexBox";
 import Button from "../../buttons/Button";
 import ItemTitle from "./ItemTitle";
 import StartDateEndDate from "./StartDateEndDate";
@@ -16,7 +17,7 @@ const boxStyle = css`
   text-align: left;
   font-size: 1.4em;`
 
-const NewSectionContentItem = ({title: entryTitle, timeStart: entryTimeStart, timeEnd: entryTimeEnd, link: entryLink, description: entryDescription}) => {
+const NewSectionContentItem = ({ title: entryTitle, timeStart: entryTimeStart, timeEnd: entryTimeEnd, link: entryLink, description: entryDescription, hide }) => {
   const [itemData, setItemData] = useState({
     title: entryTitle,
     timeStart: entryTimeStart,
@@ -29,11 +30,7 @@ const NewSectionContentItem = ({title: entryTitle, timeStart: entryTimeStart, ti
 
   const [newDesc, setNewDesc] = useState('');
 
-  const [isUnsaved, setIsUnsaved] = useState(true);
-
-  useEffect(() => {
-    setIsUnsaved(true);
-  }, [itemData]);
+  const [isUnsaved, setIsUnsaved] = useState(false);
 
   const handleChange = (e) => {
     setItemData(prev => ({
@@ -44,6 +41,7 @@ const NewSectionContentItem = ({title: entryTitle, timeStart: entryTimeStart, ti
 
   const handleNewDescChange = (e) => {
     setNewDesc(e.target.value);
+    setIsUnsaved(true);
   }
 
   const handleNewDescDone = () => {
@@ -52,27 +50,31 @@ const NewSectionContentItem = ({title: entryTitle, timeStart: entryTimeStart, ti
       description: [...prev.description, newDesc]
     }));
     setNewDesc('');
+    setIsUnsaved(true);
   }
 
   const handleDescItemEdit = (index, text) => {
     setItemData(prev => ({
       ...prev,
       description: [...prev.description.slice(0, index), text, ...prev.description.slice(index + 1)]
-    }))
+    }));
+    setIsUnsaved(true);
   }
 
   const handleDescItemDelete = (index) => {
     setItemData(prev => ({
       ...prev,
       description: [...prev.description.slice(0, index), ...prev.description.slice(index + 1)]
-    }))
+    }));
+    setIsUnsaved(true);
   }
 
   const handleLinkDelete = () => {
     setItemData(prev => ({
       ...prev,
       link: ''
-    }))
+    }));
+    setIsUnsaved(true);
   }
 
   const onSave = () => {
@@ -80,14 +82,20 @@ const NewSectionContentItem = ({title: entryTitle, timeStart: entryTimeStart, ti
   }
 
   return (
-    <div css={boxStyle}>
+    <FlexBox
+      addCss={css`
+        ${boxStyle};
+      `}
+      column
+      hide={hide}
+      >
       <p css={css`margin-bottom: 1rem; text-align: center;
       display: ${isUnsaved ? 'block' : 'none'};`} >Unsaved</p>
-      <ItemTitle 
+      <ItemTitle
         value={title}
         onChange={handleChange} />
       <div>
-        <StartDateEndDate {...{timeStart, timeEnd}} onChange={handleChange} />
+        <StartDateEndDate {...{ timeStart, timeEnd }} onChange={handleChange} />
         <AddLink
           value={link}
           onChange={handleChange}
@@ -102,7 +110,9 @@ const NewSectionContentItem = ({title: entryTitle, timeStart: entryTimeStart, ti
           onDone={handleNewDescDone} />
       </div>
       <Button addCss={css`margin: auto; margin-top: 1rem;`} fontSize='1em' hide={!isUnsaved} onClick={onSave} >Save</Button>
-    </div>
+    </FlexBox>
+
+
   )
 }
 
