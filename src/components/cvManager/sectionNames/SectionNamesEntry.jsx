@@ -4,12 +4,12 @@ import PillButton from '../../buttons/PillButton';
 
 const SectionNamesEntry = ({ title }) => {
   const dispatch = useDispatch();
-  const onClick = () => {
+  const handleClick = () => {
     dispatch(shownSectionChanged(title))
   }
 
   return (
-    <PillButton onClick={onClick}>{title}</PillButton>
+    <PillButton onClick={handleClick}>{title}</PillButton>
   )
 }
 

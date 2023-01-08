@@ -27,7 +27,7 @@ const AddSection = () => {
   display: ${isInputShown ? 'inline-block' : 'none'};
   `;
 
-  const onPlusButtonClick = () => {
+  const handleAddBtnClick = () => {
     if (isInputShown && title !== '') {
       console.log('dispatch')
       dispatch(sectionAdded(title));
@@ -44,14 +44,14 @@ const AddSection = () => {
     }
   }
 
-  const onCloseButtonClick = () => {
+  const handleCloseBtnClick = () => {
     setAddSectionState((prevState => ({
       ...prevState,
       isInputShown: false
     })))
   }
 
-  const onChange = (e) => {
+  const handleChange = (e) => {
     setAddSectionState((prevState) => ({
       ...prevState,
       title: e.target.value
@@ -60,9 +60,9 @@ const AddSection = () => {
 
   return (
     <FlexBox justifyContent='center' alignItems='center' row inline>
-      <input type="text" name="sectionTitle" id="" css={inputStyle} onChange={onChange} value={title} />
-      <RoundButton small hide={false} onClick={onPlusButtonClick}><FaPlus /></RoundButton>
-      <RoundButton small hide={!isInputShown} onClick={onCloseButtonClick}><FaTimes /></RoundButton>
+      <input type="text" name="sectionTitle" id="" css={inputStyle} onChange={handleChange} value={title} />
+      <RoundButton small hide={false} onClick={handleAddBtnClick}><FaPlus /></RoundButton>
+      <RoundButton small hide={!isInputShown} onClick={handleCloseBtnClick}><FaTimes /></RoundButton>
     </FlexBox>
   )
 }
