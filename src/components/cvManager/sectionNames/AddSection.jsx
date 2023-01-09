@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { FaPlus, FaTimes } from "react-icons/fa";
-import { sectionAdded } from '../../../stores/sectionSlice';
+import { sectionAdded } from '../../../stores/cvItemsSlice';
 import RoundButton from '../../buttons/RoundButton';
 import FlexBox from '../../containers/FlexBox';
 

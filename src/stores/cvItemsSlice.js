@@ -50,15 +50,15 @@ const initialState = {
   shownSection: ''
 };
 
-const sectionSlice = createSlice({
-  name: 'sections',
+const cvItemsSlice = createSlice({
+  name: 'cvItems',
   initialState,
   reducers: {
     sectionAdded: (state, action) => {
       state.entries[action.payload] = [];
     },
     sectionDeleted: (state, action) => {
-      let index = state.sections.entries.indexOf(action.payload);
+      let index = state.entries.indexOf(action.payload);
       state.entries.splice(index, 1);
     },
     shownSectionChanged: (state, action) => {
@@ -73,18 +73,18 @@ const sectionSlice = createSlice({
   }
 });
 
-export default sectionSlice.reducer;
+export default cvItemsSlice.reducer;
 
-export const { sectionAdded, sectionDeleted, shownSectionChanged, descriptionEdited, descriptionRemoved } = sectionSlice.actions;
+export const { sectionAdded, sectionDeleted, shownSectionChanged, descriptionEdited, descriptionRemoved } = cvItemsSlice.actions;
 
 export const selectSectionTitles = (state) => {
-  return state.sections.entries.map(entry => entry.section);
+  return state.cvItems.entries.map(entry => entry.section);
 }
 
 export const selectSectionContent = (state, section) => {
-  return state.sections.entries.filter(entry => entry.section === section.toLowerCase());
+  return state.cvItems.entries.filter(entry => entry.section === section.toLowerCase());
 }
 
 export const selectShownSection = (state) => {
-  return state.sections.shownSection;
+  return state.cvItems.shownSection;
 }

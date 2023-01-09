@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { shownSectionChanged } from '../../../stores/sectionSlice';
+import { shownSectionChanged } from '../../../stores/cvItemsSlice';
 import PillButton from '../../buttons/PillButton';
 
 const SectionNamesEntry = ({ title }) => {

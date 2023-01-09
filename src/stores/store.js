@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import sectionReducer from './sectionSlice';
-import newItemReducer from './newItemSlice';
+import cvItemsReducer from './cvItemsSlice';
+import cvSectionsReducer from './cvSectionsSlice'
 
 export default configureStore({
   reducer: {
-    sections: sectionReducer,
+    cvItems: cvItemsReducer,
+    cvSections: cvSectionsReducer
   }
 })

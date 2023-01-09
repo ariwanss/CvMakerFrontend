@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import { useSelector } from 'react-redux';
 import { SectionNames } from './sectionNames/SectionNames'
 import  SectionContent  from './sectionContent/SectionContent';
-import { selectShownSection } from '../../stores/sectionSlice';
+import { selectShownSection } from '../../stores/cvItemsSlice';
 
 const CvManager = () => {
   let shownSection = useSelector(selectShownSection);

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectSectionContent, shownSectionChanged } from '../../../stores/sectionSlice';
+import { selectSectionContent, shownSectionChanged } from '../../../stores/cvItemsSlice';
 import { FaTimes, FaRegTrashAlt, FaEdit, FaPlus } from 'react-icons/fa';
 import { EditButton, DoneButton, DeleteButton } from '../../buttons/TextButtons';
 import { useState, useEffect } from 'react';
